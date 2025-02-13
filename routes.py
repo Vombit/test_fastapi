@@ -82,9 +82,6 @@ async def register(user: UserCreate, db: AsyncSession = Depends(get_session)):
     
     referrer = None
     # проверяем код реферера
-    print('\n\n\n\n')
-    print(referrer)
-    print('\n\n\n\n')
     if user.referral_code:
         statement = select(ReferralCode).filter(
             ReferralCode.code == user.referral_code,
@@ -99,9 +96,6 @@ async def register(user: UserCreate, db: AsyncSession = Depends(get_session)):
         referrer = referral.owner
 
     hashed_password = get_password_hash(user.password)
-    print('\n\n\n\n')
-    print(hashed_password)
-    print('\n\n\n\n')
     new_user = User(
         email=user.email,
         hashed_password=hashed_password,
