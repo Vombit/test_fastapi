@@ -1,0 +1,27 @@
+services:
+  web:
+    build: .
+    container_name: fastapi
+    ports:
+      - "8000:8000"
+    environment:
+      SECRET_KEY: "123qwerty"
+      DATABASE_USER: "postgres"
+      DATABASE_PASSWORD: "1password"
+      DATABASE_HOST: "db"
+      DATABASE_PORT: "5432"
+      DATABASE_NAME: "postgres"
+      ACCESS_TOKEN_TIME: "30"
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: pg_db
+    restart: on-failure
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "1password"
+      POSTGRES_DB: "postgres"
+    ports:
+      - "5432:5432"
